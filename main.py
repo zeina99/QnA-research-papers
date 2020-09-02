@@ -1,3 +1,4 @@
+
 import sqlite3
 from numpy.lib.function_base import vectorize
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -12,16 +13,19 @@ model = AutoModelForQuestionAnswering.from_pretrained("bert-large-uncased-whole-
 connection = sqlite3.connect('qa.db')
 cursor = connection.cursor()
 
-QUERY = 'What is self-attention model do?'
+QUERY = 'What is language modeling usually framed as?'
 
-PDF_NAME = "7181-attention-is-all-you-need.pdf"
+PDF_NAME = "language-models.pdf"
 
 def get_paragraphs_from_pdf_name(PDF_NAME):
     with connection:
         cursor.execute("SELECT id from documents WHERE document_name = :document_name",(PDF_NAME,))
-        document_id = cursor.fetchone()[0]
-        if document_id == 0:
-            raise Exception('PDF Document does not exist')
+        try:
+            document_id = cursor.fetchone()[0]
+        except TypeError as e:
+            print(f"{e} pdf document does not exist")
+        # if document_id == 0:
+        #     raise Exception('PDF Document does not exist')
 
         cursor.execute("SELECT paragraph_text from paragraphs WHERE document_id = :document_id",{"document_id":document_id})
         paragraphs = cursor.fetchall()
@@ -86,6 +90,8 @@ sim = tfidf_vector.get_sorted_similarity(QUERY)
 
 
 paragraphs_most_sim = tfidf_vector.top_6_paragraphs(sim)
+# list to hold all 6 question and answers
+question_answers = []
 
 for paragraph in paragraphs_most_sim:
     inputs = tokenizer(QUERY, paragraph, add_special_tokens=True, return_tensors="pt")
@@ -98,9 +104,13 @@ for paragraph in paragraphs_most_sim:
     )  # Get the most likely beginning of answer with the argmax of the score
     answer_end = torch.argmax(answer_end_scores) + 1  # Get the most likely end of answer with the argmax of the score
     answer = tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(input_ids[answer_start:answer_end]))
-    print(f"Question: {QUERY}")
-    print(f"Answer: {answer}")
-    print()
+    # print(f"Question: {QUERY}")
+    # print(f"Answer: {answer}")
+    question_answers.append(
+        {"Question" : QUERY,
+        "Answer:" : answer}
+    )
+
 
 # vectorizer, tfidf_docs = fit_transform(paragraphs)
 # similarities = get_similarity(QUERY,tfidf_docs,vectorizer)
@@ -123,3 +133,6 @@ for paragraph in paragraphs_most_sim:
 
 
 connection.close()
+
+# questions:  
+# What is language modeling usually framed as?

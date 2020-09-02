@@ -73,7 +73,7 @@ def document_to_paragraphs(document, num_of_words_per_paragraph):
             paragraph = ''
     return paragraphs_list
     
-pdf_to_db('pdfs/7181-attention-is-all-you-need.pdf',two_columns_in_page=False)
+pdf_to_db('pdfs/language-models.pdf',two_columns_in_page=True)
 
 #7181-attention-is-all-you-need.pdf
 # with open('data/output2.txt', 'w') as file_to_write:
