@@ -1,9 +1,8 @@
-
 attempt-2.py
 attempt3.py
 attempt1.py
 __pycache__
 left.png
 right.png
-data
- 
+data/
+.DS_Store
