@@ -8,13 +8,13 @@ PDF -> paragraphs -> DB
 
 Question, pdf -> top 6 paragraphs -> top 6 answers
 
-### Pdf to database
+### 1. Pdf to database
 - when pdf gets added
   - text is extracted from the pdf
   - text is added to the database
   - the text is iterated over and gets divided into paragraphs. a paragraph is set to have a max of 250 words
   - list of paragraphs get added to database along with docuemnt-id they belong to
-### Ask a question 
+### 2. Ask a question 
 - When the desired pdf is selected and the question is entered, cosine-similarity is applied on all paragaraphs according to the pdf selected and the top 6 paragraphs that could hold the answer are returned.
 - QA model on 6 paragraphs
   - the QA model is applied on all 6 paragraphs so we end up with 6 possible answers.

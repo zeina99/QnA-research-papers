@@ -1,12 +1,13 @@
 import pdfplumber
 import sqlite3
 import os
-import re
+
 connection = sqlite3.connect('qa.db')
 cursor = connection.cursor()
 
 
 def pdf_to_db(pdf_file_path, two_columns_in_page = False):
+
     file = pdfplumber.open(pdf_file_path)
     # to hold the text in the whole document
     full_text_in_document = ''
@@ -36,7 +37,8 @@ def pdf_to_db(pdf_file_path, two_columns_in_page = False):
 
     # adding document to db
     #check if document already exists
-    with connection:
+    with sqlite3.connect('qa.db') as connection:
+        cursor = connection.cursor()
         
         cursor.execute("SELECT * from documents WHERE document_name = :document_name",{"document_name": tail})
         res = cursor.fetchall()
@@ -47,13 +49,14 @@ def pdf_to_db(pdf_file_path, two_columns_in_page = False):
             cursor.execute("INSERT into documents (document_name, document_text) VALUES (:document_name, :document_text)",{"document_name":tail,"document_text": full_text_in_document})
             cursor.execute("SELECT id from documents WHERE document_name = :document_name",{"document_name": tail})
             document_id = cursor.fetchone()[0]
-            
-    
-    # adding paragraphs to db
-    for paragraph in paragraphs_list:
-        with connection:
+        
+        # adding paragraphs to db   
+        for paragraph in paragraphs_list:
             cursor.execute("INSERT INTO paragraphs (paragraph_text, document_id) VALUES (:paragraph_text, :document_id)", {"paragraph_text":paragraph, "document_id":document_id})
 
+    
+
+ 
     connection.close()
 def document_to_paragraphs(document, num_of_words_per_paragraph): 
     # split document into words

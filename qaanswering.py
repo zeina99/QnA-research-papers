@@ -4,28 +4,30 @@ from numpy.lib.function_base import vectorize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 import torch
+from transformers import AutoTokenizer, AutoModelForQuestionAnswering
+
 
 tokenizer = AutoTokenizer.from_pretrained("bert-large-uncased-whole-word-masking-finetuned-squad")
 model = AutoModelForQuestionAnswering.from_pretrained("bert-large-uncased-whole-word-masking-finetuned-squad")
 
-connection = sqlite3.connect('qa.db')
-cursor = connection.cursor()
+
 
 QUERY = 'What is language modeling usually framed as?'
 
 PDF_NAME = "language-models.pdf"
 
-def get_paragraphs_from_pdf_name(PDF_NAME):
-    with connection:
-        cursor.execute("SELECT id from documents WHERE document_name = :document_name",(PDF_NAME,))
+def get_paragraphs_from_pdf_name(pdf_name):
+    with sqlite3.connect('qa.db') as connection:
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT id from documents WHERE document_name = :document_name",(pdf_name,))
+        
         try:
             document_id = cursor.fetchone()[0]
-        except TypeError as e:
-            print(f"{e} pdf document does not exist")
-        # if document_id == 0:
-        #     raise Exception('PDF Document does not exist')
+        except Exception as e:
+            raise e 
+            
 
         cursor.execute("SELECT paragraph_text from paragraphs WHERE document_id = :document_id",{"document_id":document_id})
         paragraphs = cursor.fetchall()
@@ -33,9 +35,11 @@ def get_paragraphs_from_pdf_name(PDF_NAME):
         paragraphs_list = []
         for paragraph in paragraphs:
             paragraphs_list.append(paragraph[0])
-        return paragraphs_list
+        
+    connection.close()
+    return paragraphs_list
 
-paragraphs = get_paragraphs_from_pdf_name(PDF_NAME=PDF_NAME)
+# paragraphs = get_paragraphs_from_pdf_name(pdf_name==PDF_NAME)
 
 class TfIdfVector():
     def __init__(self,paragraphs):
@@ -45,6 +49,7 @@ class TfIdfVector():
         self.paragraphs = paragraphs
     
     def fit_transform(self):
+        
         self.tfidf_docs = self.vector.fit_transform(self.paragraphs)
         return self.tfidf_docs
 
@@ -84,32 +89,36 @@ class TfIdfVector():
         return top_6_paragraphs
 
 
-tfidf_vector = TfIdfVector(paragraphs)
-tfidf_vector.fit_transform()
-sim = tfidf_vector.get_sorted_similarity(QUERY)
+# tfidf_vector = TfIdfVector(paragraphs)
+# tfidf_vector.fit_transform()
+# sim = tfidf_vector.get_sorted_similarity(QUERY)
 
 
-paragraphs_most_sim = tfidf_vector.top_6_paragraphs(sim)
-# list to hold all 6 question and answers
-question_answers = []
+# paragraphs_most_sim = tfidf_vector.top_6_paragraphs(sim)
 
-for paragraph in paragraphs_most_sim:
-    inputs = tokenizer(QUERY, paragraph, add_special_tokens=True, return_tensors="pt")
-    input_ids = inputs["input_ids"].tolist()[0]
-    
-    text_tokens = tokenizer.convert_ids_to_tokens(input_ids)
-    answer_start_scores, answer_end_scores = model(**inputs)
-    answer_start = torch.argmax(
-        answer_start_scores
-    )  # Get the most likely beginning of answer with the argmax of the score
-    answer_end = torch.argmax(answer_end_scores) + 1  # Get the most likely end of answer with the argmax of the score
-    answer = tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(input_ids[answer_start:answer_end]))
-    # print(f"Question: {QUERY}")
-    # print(f"Answer: {answer}")
-    question_answers.append(
-        {"Question" : QUERY,
-        "Answer:" : answer}
-    )
+
+def get_six_answers(top_6_paragraphs,query):
+    # list to hold all 6 question and answers
+    question_answers = []
+
+    for paragraph in top_6_paragraphs:
+        inputs = tokenizer(query, paragraph, add_special_tokens=True, return_tensors="pt")
+        input_ids = inputs["input_ids"].tolist()[0]
+        
+        text_tokens = tokenizer.convert_ids_to_tokens(input_ids)
+        answer_start_scores, answer_end_scores = model(**inputs)
+        answer_start = torch.argmax(
+            answer_start_scores
+        )  # Get the most likely beginning of answer with the argmax of the score
+        answer_end = torch.argmax(answer_end_scores) + 1  # Get the most likely end of answer with the argmax of the score
+        answer = tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(input_ids[answer_start:answer_end]))
+        # print(f"Question: {QUERY}")
+        # print(f"Answer: {answer}")
+        question_answers.append(
+            {"Question" : query,
+            "Answer:" : answer}
+        )
+    return question_answers
 
 
 # vectorizer, tfidf_docs = fit_transform(paragraphs)
@@ -132,7 +141,7 @@ for paragraph in paragraphs_most_sim:
 #     return cosineSimilarities
 
 
-connection.close()
+
 
 # questions:  
 # What is language modeling usually framed as?

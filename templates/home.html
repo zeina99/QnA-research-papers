@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div>
+    <form action="/" method="post">
+        <div>
+
+            <select name="pdfs" id="pdfs">
+                {% for pdf in pdfs %}
+                    <option value="{{pdf}}">{{pdf}}</option>
+                {% endfor %}
+            </select>
+        
+        
+        </div>
+        <label for="question">Ask your question:</label>
+        <input type="text" name="question" id="question">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<div>
+    <h3>Answer:</h3>
+    {% for answer in answers %}
+    <h5> answer </h5>
+    {% endfor %}
+</div>
+{% endblock content %}
