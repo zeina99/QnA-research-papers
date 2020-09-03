@@ -33,13 +33,17 @@ pages:
 - add pdf  -> adds a pdf to the database
 - home page: [POST, GET]
   - GET:
-    - view pdfs, 
-    - select a pdf from dropdown, 
-    - input a query,
-    - submit a query
+
   - POST:
     - get the query
     - get the pdf
     - get top 6 answers according to pdf and query
     - show the top 6 answers
+- [ ] Navbar
+- [ ] add checkmark for two-columns in addpdf
+- [ ] make addpdf add pdf to database - currently only adds to pdf folder
+- [ ] re-structure the files - currently very messy
+- [ ] add styling
+- [ ] refactor so that top 6 answers is a global variable -> top N answers 
+- [ ] introduce testing units
 

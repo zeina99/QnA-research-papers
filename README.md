@@ -35,4 +35,5 @@ Question, pdf -> top 6 paragraphs -> top 6 answers
   
 ### Future improvements:
 - find a way to ignore subscripts when extracting text from pdfs as it is causing problems
-- implement a login system
+- divide paragraphs as present in pdf document, instead of a fixed word count
+- implement a login system where each user can view their own pdfs

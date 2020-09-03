@@ -33,7 +33,7 @@ def home():
         pdf_name = request.form.get('pdfs')
         print("pdfname: ",pdf_name)
         answers = get_ans(query=query,pdfname=pdf_name)
-        return render_template("home.html", answers = answers, pdfs = all_pdfs)
+        return render_template("home.html", answers = answers, pdfs = all_pdfs, question = query)
 
 @app.route('/addpdf', methods=['GET', 'POST'])
 def addpdf():
@@ -42,7 +42,7 @@ def addpdf():
         # check if the post request has the file part
         if 'pdffile' not in request.files:
             flash('No file part')
-            print("one")
+            
             return redirect(request.url)
         file = request.files['pdffile']
         # if user does not select file, browser also
@@ -56,10 +56,8 @@ def addpdf():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash('file added')
-            print('file added')
             return redirect('/')
         else:
-            print('does not exist')
             flash('file extension not supported or file already exists')
             return redirect(request.url)
     else:
@@ -82,5 +80,7 @@ def get_ans(pdfname,query):
     paragraphs_most_sim = tfidf_vector.top_6_paragraphs(similarity_scores)
     answers = get_six_answers(paragraphs_most_sim,query)
     return answers
+
+
 if __name__ == "__main__":
     app.run(debug=True)

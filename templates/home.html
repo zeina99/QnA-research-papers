@@ -20,9 +20,11 @@
     </form>
 </div>
 <div>
-    <h3>Answer:</h3>
+    <h3>Question: {{question}}</h3>
+    <h4>Answer:</h4>
     {% for answer in answers %}
-    <h5> answer </h5>
+
+    <h5> Answer {{loop.index}}:{{answer['answer']}} </h5>
     {% endfor %}
 </div>
 {% endblock content %}

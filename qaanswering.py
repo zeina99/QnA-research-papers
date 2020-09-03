@@ -13,9 +13,9 @@ model = AutoModelForQuestionAnswering.from_pretrained("bert-large-uncased-whole-
 
 
 
-QUERY = 'What is language modeling usually framed as?'
+# QUERY = 'What is language modeling usually framed as?'
 
-PDF_NAME = "language-models.pdf"
+# PDF_NAME = "language-models.pdf"
 
 def get_paragraphs_from_pdf_name(pdf_name):
     with sqlite3.connect('qa.db') as connection:
@@ -115,8 +115,8 @@ def get_six_answers(top_6_paragraphs,query):
         # print(f"Question: {QUERY}")
         # print(f"Answer: {answer}")
         question_answers.append(
-            {"Question" : query,
-            "Answer:" : answer}
+            {"question" : query,
+            "answer" : answer}
         )
     return question_answers
 
@@ -125,21 +125,6 @@ def get_six_answers(top_6_paragraphs,query):
 # similarities = get_similarity(QUERY,tfidf_docs,vectorizer)
 
 # print(similarities)
-
-
-# def fit_transform(paragraphs):
-#     vectorizer = TfidfVectorizer()
-#     tfidf_docs = vectorizer.fit_transform(paragraphs)
-#     return vectorizer, tfidf_docs
-
-# def get_similarity(query, tfidf_docs,vectorizer):
-
-#     query_tfidf = vectorizer.transform([query])
-#     cosineSimilarities = cosine_similarity(query_tfidf, tfidf_docs,dense_output=False)
-    
-
-#     return cosineSimilarities
-
 
 
 
