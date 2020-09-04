@@ -1,9 +1,23 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<form action="" method="post" enctype=multipart/form-data >
-    <label for="pdffile">Choose your pdf:</label>
-    <input type="file" name="pdffile" id="pdffile">
-    <input type=submit value=Upload>
-</form>
+<div class="container p-5">
+    <form action="" method="post" enctype=multipart/form-data >
+        <div class="row">
+            <div class="form-group">
+                <label for="pdffile">Choose your pdf:</label>
+                <input type="file" name="pdffile" id="pdffile" class ="form-control-file">
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="form-check"> 
+                <label for="twocolumns" class="form-check-label">File has text in 2 columns:</label>
+                <input type="checkbox" name="twocolumns" id="twocolumns" class="form-check-label">
+            </div>
+        </div>
+        <div class="row p-3">
+            <input type=submit value=Upload class="btn btn-primary mb-2">
+        </div>
+    </form>
+</div>
 {% endblock content %}

@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container p-5">
+    
+    <form action="/" method="post" class=" ">
+        <div class="row">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Choose a PDF:</label>
+            <select name="pdfs" class="form-control" id="exampleFormControlSelect1">
+                {% for pdf in pdfs %}
+                    <option value="{{pdf}}">{{pdf}}</option>
+                {% endfor %}
+            </select>
+        
+        
+             </div>
+        </div>
+
+    <div class="row">
+        <div class="form-group ">
+             <label for="question">Ask your question:</label>
+            <input type="text" name="question" id="question"  class="form-control w-100" >
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </div>
+    </div>
+    
+    </form>
+</div>
+<div class="container p-5 width50">
+    <div class="row">
+        <h3>Question: {{question}}</h3>
+    </div>
+    <div class="row">
+        <h4>Answer:</h4>
+        {% for answer in answers %}
+
+        <h5> Answer {{loop.index}}:{{answer['answer']}} </h5>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

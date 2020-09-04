@@ -121,12 +121,6 @@ def get_six_answers(top_6_paragraphs,query):
     return question_answers
 
 
-# vectorizer, tfidf_docs = fit_transform(paragraphs)
-# similarities = get_similarity(QUERY,tfidf_docs,vectorizer)
-
-# print(similarities)
-
-
 
 # questions:  
 # What is language modeling usually framed as?

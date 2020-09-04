@@ -2,8 +2,7 @@ import pdfplumber
 import sqlite3
 import os
 
-connection = sqlite3.connect('qa.db')
-cursor = connection.cursor()
+
 
 
 def pdf_to_db(pdf_file_path, two_columns_in_page = False):
@@ -76,38 +75,12 @@ def document_to_paragraphs(document, num_of_words_per_paragraph):
             paragraph = ''
     return paragraphs_list
     
-pdf_to_db('pdfs/language-models.pdf',two_columns_in_page=True)
 
 #7181-attention-is-all-you-need.pdf
-# with open('data/output2.txt', 'w') as file_to_write:
-    
-#     with pdfplumber.open("7181-attention-is-all-you-need.pdf") as pdf:
 
-#         for page in pdf.pages:
-#             extracted_text = page.extract_text(x_tolerance = 2, y_tolerance=2)
-            
-           
-#             file_to_write.write(extracted_text)
-
-
-
-  #  print(first_page.extract_text(x_tolerance = 2, y_tolerance=2))
-
-# file = pdfplumber.open("pdfs/paper2.pdf")
 
 # page = file.pages[1]
 # x0: left-x of bounding box, measured from left side of page
 # top: top-y of bounding box, measured from top of page
 # x1: right-x of bounding box, measured from left side of page
 # bottom: bottom-y of bounding box, measured from top of page
-# left = page.crop((0, 0, 0.5*float(page.width), page.height) )
-                
-# im = left.to_image(resolution=200)
-# text = left.extract_text(x_tolerance=2, y_tolerance=2)
-# right = page.crop((0.5*float(page.width),0, page.width, page.height))
-# im2 = right.to_image(resolution=200)
-# im2.save("right.png", format = "PNG")
-# text2 = right.extract_text(x_tolerance=2, y_tolerance=2)
-# print(text)
-# print(text2)
-# im.save("left.png", format="PNG")

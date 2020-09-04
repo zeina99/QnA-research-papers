@@ -1,0 +1,16 @@
+
+
+form{
+    
+    width: 450px;
+    margin: auto;
+
+}
+/* .container.p-5{
+    width: 450px;
+    margin: auto;
+} */
+
+.container.p-5.width50{
+    width: 50%;
+}

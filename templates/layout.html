@@ -6,12 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Question Answering on research papers</title>
     <!-- Compressed CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     
+
 </head>
 <body>
+
+    <nav class="navbar navbar-expand-xl navbar-light bg-light shadow">
+        <div class="d-md-flex d-block flex-row mx-md-auto mx-0">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"> Ask question</a>  
+                    </li>
+      
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addpdf">Add PDF </a>
+                    </li>
+            
+                </ul>
+            </div>
+        </div>
+    </nav>
     
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
      {% block content %}
     
     {% endblock %}

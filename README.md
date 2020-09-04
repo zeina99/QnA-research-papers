@@ -4,7 +4,7 @@
 A Question Answering program that takes in a question from a user and returns the top 6 answers according to the question
 
 ## How it works:
-PDF -> paragraphs -> DB
+PDF -> text extraction -> document ,paragraphs -> DB
 
 Question, pdf -> top 6 paragraphs -> top 6 answers
 

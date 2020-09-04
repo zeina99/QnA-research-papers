@@ -23,7 +23,7 @@
   - [] Cosine similarity between the query and paragraphs [ top 6 ]
   - [] get top 6 highest rated paragraphs
 
-  - [] check https://stackoverflow.com/questions/55677314/using-sklearn-how-do-i-calculate-the-tf-idf-cosine-similarity-between-documents for more help
+  - [X] check https://stackoverflow.com/questions/55677314/using-sklearn-how-do-i-calculate-the-tf-idf-cosine-similarity-between-documents 
 
 - [X] Apply the QA model on each paragraph and get 6 answers
   
@@ -39,11 +39,12 @@ pages:
     - get the pdf
     - get top 6 answers according to pdf and query
     - show the top 6 answers
-- [ ] Navbar
-- [ ] add checkmark for two-columns in addpdf
-- [ ] make addpdf add pdf to database - currently only adds to pdf folder
+- [X] Navbar
+- [X] add checkmark for two-columns in addpdf
+- [X] make addpdf add pdf to database - currently only adds to pdf folder
 - [ ] re-structure the files - currently very messy
 - [ ] add styling
 - [ ] refactor so that top 6 answers is a global variable -> top N answers 
+- [ ] check if 
 - [ ] introduce testing units
 
