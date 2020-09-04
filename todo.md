@@ -44,6 +44,7 @@ pages:
 - [X] make addpdf add pdf to database - currently only adds to pdf folder
 - [ ] re-structure the files - currently very messy
 - [ ] add styling
+- [ ] change `check_if_pdf_exists()` to check from db instead of pdfs folder
 - [ ] refactor so that top 6 answers is a global variable -> top N answers 
 - [ ] check if 
 - [ ] introduce testing units
