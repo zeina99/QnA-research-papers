@@ -24,8 +24,8 @@ def allowed_file(filename):
 
 @app.route("/",methods = ['POST','GET'])
 def home():
-    all_pdfs = os.listdir(PDF_DIRECTORY)
-    
+    all_pdfs = get_pdfs(PDF_DIRECTORY)
+    print(all_pdfs)
     if request.method == "GET":
         return render_template("index.html",pdfs = all_pdfs)
 
@@ -91,6 +91,10 @@ def get_ans(pdfname,query):
     answers = get_six_answers(paragraphs_most_sim,query)
     return answers
 
-
+def get_pdfs(PDF_DIRECTORY):
+    pdfs = os.listdir(PDF_DIRECTORY)
+    if ".DS_Store" in pdfs:
+        pdfs.remove('.DS_Store')
+    return pdfs
 if __name__ == "__main__":
     app.run(debug=True)
