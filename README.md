@@ -6,9 +6,11 @@ It uses a pretrained BERT QA model to perform extractive question answering on t
 
 ## How it works:
 Adding a pdf file:
+
 PDF -> text extraction -> document ,paragraphs -> DB
 
 Asking a question:
+
 Question, pdf chosen -> top 6 paragraphs -> top 6 answers
 
 ### 1. Pdf to database

@@ -37,12 +37,13 @@
     <div class="row">
         <h3>Question: {{question}}</h3>
     </div>
-    <div class="row">
+    
         <h4>Answer:</h4>
         {% for answer in answers %}
-
-        <h5> Answer {{loop.index}}:{{answer['answer']}} </h5>
+        <div class="row">
+            <h5> Answer {{loop.index}}:{{answer['answer']}} </h5>
+        </div>
         {% endfor %}
-    </div>
+    
 </div>
 {% endblock content %}
