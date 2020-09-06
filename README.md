@@ -3,7 +3,22 @@
 ## About
 A Question Answering program that takes in a question from a user and returns the top 6 answers according to the question.
 It uses a pretrained BERT QA model to perform extractive question answering on text.
+## Installation
+1. clone the repo by running: `https://github.com/zeina99/QnA-research-papers.git` 
+2. cd into the directory into the cloned repo
+3. to install the requirements:
+   1. make sure python is installed
+   2.  ```pip install requierements.txt``` 
+   
+        OR 
+        ```
+        pip install transformers flask torch scikit-learn numpy pdfplumber
+        ```
 
+4. run the app:
+   
+   ```python app.py```
+   
 ## How it works:
 Adding a pdf file:
 

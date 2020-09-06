@@ -5,7 +5,7 @@ import os
 from werkzeug.utils import secure_filename
 from qaanswering import get_paragraphs_from_pdf_name,TfIdfVector,get_six_answers
 from extract_pdf_to_db import pdf_to_db
-import sqlite3
+
 
 UPLOAD_FOLDER = 'pdfs'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg'}
@@ -25,14 +25,14 @@ def allowed_file(filename):
 @app.route("/",methods = ['POST','GET'])
 def home():
     all_pdfs = get_pdfs(PDF_DIRECTORY)
-    print(all_pdfs)
+    
     if request.method == "GET":
         return render_template("index.html",pdfs = all_pdfs)
 
     if request.method == "POST":
         query =request.form.get('question')
         pdf_name = request.form.get('pdfs')
-        print("pdfname: ",pdf_name)
+        
         answers = get_ans(query=query,pdfname=pdf_name)
         return render_template("index.html", answers = answers, pdfs = all_pdfs, question = query)
 

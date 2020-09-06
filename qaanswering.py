@@ -1,6 +1,6 @@
 
 import sqlite3
-from numpy.lib.function_base import vectorize
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
