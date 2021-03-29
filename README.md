@@ -1,7 +1,7 @@
 # QnA-research-papers
 
 ## About
-A Question Answering program that takes in a question from a user and returns the top 6 answers according to the question.
+A Question Answering webapp that takes in a question from a user and returns the top 6 answers according to the question.
 It uses a pretrained BERT QA model to perform extractive question answering on text.
 ## Installation
 1. clone the repo by running: `git clone https://github.com/zeina99/QnA-research-papers.git` 
