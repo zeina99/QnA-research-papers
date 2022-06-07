@@ -8,7 +8,7 @@ It uses a pretrained BERT QA model to perform extractive question answering on t
 2. cd into the directory into the cloned repo
 3. to install the requirements:
    1. make sure python is installed
-   2.  ```pip install requierements.txt``` 
+   2.  ```pip install -r requirements.txt``` 
    
         OR 
         ```
