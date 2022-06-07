@@ -57,3 +57,18 @@ Question, pdf chosen -> top 6 paragraphs -> top 6 answers
 - find a way to ignore subscripts when extracting text from pdfs as it is causing problems
 - divide paragraphs as present in pdf document, instead of a fixed word count
 - implement a login system where each user can view their own pdfs
+
+
+## Screenshots
+
+1. Adding a pdf: 
+![Adding a new pdf to the database](screenshots/addpdf.png)
+
+2. Preparing a question to ask related to the pdf content: 
+
+- Question: What is the most competitive neural sequence transduction models have? 
+- Answer: an encoder-decoder structure
+![Preparing a question to ask related to the pdf content](screenshots/pdfquestion.jpg)
+
+3. Getting top 6 answers according to the question. 
+![Getting top 6 answers according to the question](screenshots/QAdemo.jpg)
